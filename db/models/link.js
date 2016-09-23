@@ -1,6 +1,9 @@
-var Link = sequelize.define('link', {
+var Sequelize = require('sequelize');
+
+module.exports = function(db) {
+  var Link = db.define('links', {
   url: {
-    type: Sequlize.STRING,
+    type: Sequelize.STRING,
     allowNull: false, 
   },
   votes: {
@@ -15,8 +18,6 @@ var Link = sequelize.define('link', {
     type: Sequelize.STRING,
     // allowNull: false,
   },
-}, {
-  tablename: 'links'
 });
-
-module.exports = Link; 
+  return Link;
+};
