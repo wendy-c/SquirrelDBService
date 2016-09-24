@@ -1,3 +1,5 @@
+//format 'userid%username'
+
 module.exports = {
   // test route for Postman and Mocha TDD
   test: function(req, res, next){
@@ -7,7 +9,7 @@ module.exports = {
 
   // user Login or create new user API //
   login: function(req, res, next){
-
+    
   },
 
   // user request API // 
