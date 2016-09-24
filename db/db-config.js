@@ -12,7 +12,7 @@ var User = require('./models/user')(db);
 
 // set up relationship
 User.hasMany(Link);
-Link.belongsTo(User, {as:'linke', through: 'test'});
+Link.belongsTo(User);
 
 
 User.belongsToMany(User, {as: 'friend', through: 'friendship'});

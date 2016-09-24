@@ -1,6 +1,6 @@
 //format 'userid%username'
-var User = require('../../db/models/user');
-var Link = require('../../db/models/link');
+var User = require('../../db/db-config').User;
+var Link = require('../../db/db-config').Link;
 
 module.exports = {
   // test route for Postman and Mocha TDD
@@ -13,6 +13,7 @@ module.exports = {
   login: function(req, res, next){
     var userID = req.body.userID;
     var userName = req.body.name;
+    
     User.findOne({fbid: userID})
       .then(function(user){
         if(user){
@@ -29,7 +30,19 @@ module.exports = {
 
   // user request API // 
   getLinks: function(req, res, next){
-    
+    var userID = req.params.userid;
+    // var userID = req.body.userID;
+    // var userName = req.body.name;
+
+    Link.findAll({where:{
+      owner: userID,
+    }})
+    .then(function(data){
+      var mapped = data.map(function(curr){
+        return curr.dataValues;
+      });
+      res.send(mapped);
+    });
   },
 
   putLinks: function(req, res, next){

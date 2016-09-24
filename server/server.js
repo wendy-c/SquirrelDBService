@@ -15,12 +15,27 @@ var db = require('../db/db-config').db;
 db.authenticate()
 .then(function(){
   console.log('connected to db');
-  User.findOne({fbname: "Michael Wong"})
+  User.findOne({fbname: "Squirrely"})
     .then(function(user){
-      User.create({fbid: '27364asf', fbname: 'Squirrely'})
-        .then(function(newUser){
-          user.addFriend(newUser);
-        })
+      // User.create({fbid: '27364asf', fbname: 'Squirrely'})
+      //   .then(function(newUser){
+      //     user.addFriend(newUser);
+      //   })
+      
+      // Link.create({url:'www.espn.com', owner:user.fbid, assignee:user.fbid})
+      //   .then(function(newLink){
+      //     user.addLink(newLink);
+      //   });
+
+      // Link.findAll({where: {
+      //   owner: user.fbid
+      // }})
+      // .then(function(data){
+      //   var mapped = data.map(function(curr){
+      //     return curr.dataValues;
+      //   })
+      //   console.log(mapped);
+      // })
     });
 })
 .catch(function(err){
