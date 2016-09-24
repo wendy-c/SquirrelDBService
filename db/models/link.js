@@ -10,11 +10,11 @@ module.exports = function(db) {
     type: Sequelize.INTEGER,
     defaultValue: 0,
   },
-  fbid: {
+  owner: {
     type: Sequelize.STRING,
     // allowNull: false,
   },
-  fbfriednid: {
+  assignee: {
     type: Sequelize.STRING,
     // allowNull: false,
   },

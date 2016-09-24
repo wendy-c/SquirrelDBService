@@ -4,19 +4,50 @@ var bodyParser = require('body-parser');
 var routes = require('./config/routes');
 var Sequelize = require('sequelize');
 
+//== test data base ===//
+var User = require('../db/db-config').User;
+// var Friendship = require('../db/db-config').Friendship;
+var Link = require('../db/db-config').Link;
 
 //instantiate db ORM
 var db = require('../db/db-config').db;
+
 db.authenticate()
 .then(function(){
-  console.log('sequelize connected to db!');
+  console.log('connected to db');
+  User.findOne({fbname: "Michael Wong"})
+    .then(function(user){
+      User.create({fbid: '27364asf', fbname: 'Squirrely'})
+        .then(function(newUser){
+          user.addFriend(newUser);
+        })
+    });
 })
 .catch(function(err){
   console.log('sequelize connection error');
 });
 
+// db.sync({force: true})
+//   .then(function(){
+//     console.log('sycn success!');
+//     User.create({fbid: '928374', fbname: 'Michael Wong'})
+//       .then(function(user){
+//         console.log('user saved', user);
+//       })
+//   })
+//   .catch(function(err){
+//     console.log(err, 'could not synce');
+//   }); // <=== force sync to refresh
+
+
+
+
+
+
+
+// ====================//
+
 //force sync (drop all tables! be carefuL!)
-db.sync({force: true});
 //connect middleware
 app.use(morgan('dev'));
 app.use(bodyParser.json());
