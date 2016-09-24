@@ -26,13 +26,14 @@ module.exports = {
             })
         }
       })
+      .catch(function(err){
+        console.log('login database err');
+      })
   },
 
   // user request API // 
   getLinks: function(req, res, next){
     var userID = req.params.userid;
-    // var userID = req.body.userID;
-    // var userName = req.body.name;
 
     Link.findAll({where:{
       owner: userID,
@@ -42,15 +43,48 @@ module.exports = {
         return curr.dataValues;
       });
       res.send(mapped);
+    })
+    .catch(function(err){
+      console.log('could not get Links from database: db error');
     });
   },
-
+  // add link to user // 
   putLinks: function(req, res, next){
+    var userID = req.params.userid;
 
+    Link.create({url: req.body.url, owner: userID, assignee: userID})
+      .then(function(link){
+        console.log('new link saved in putLinks');
+        res.sendStatus(201);
+        //should we be sending back the link to user for any reason? 
+      })
+      .catch(function(err){
+        console.log('new link could not be saved in putLinks');
+      })
   },
-
+  // delete specific link from user //
   deleteLinks: function(req, res, next){
-
+    var userID = req.params.userid;
+    //make sure we only delete the instance where owner AND assignee are the same
+    Link.findAll(
+      {where: {
+        url: req.body.url,
+        owner: userID,
+        assignee: userID,
+      }
+    })
+    .then(function(found){
+      //delete all duplicates of this instance
+      return found.forEach(function(link){
+        link.destroy();
+      })
+    })
+    .then(function(){
+      res.send('link deleted');
+    })
+    .catch(function(err){
+      console.log('delete Links service error');
+    })
   },
 
   friendsGet: function(req, res, next){

@@ -42,6 +42,9 @@ db.authenticate()
   console.log('sequelize connection error');
 });
 
+
+/* Uncommment portion below to resync database (drop tables)
+as well as to add relational sequelize methods to it's model instances! */
 // db.sync({force: true})
 //   .then(function(){
 //     console.log('sycn success!');
@@ -54,15 +57,6 @@ db.authenticate()
 //     console.log(err, 'could not synce');
 //   }); // <=== force sync to refresh
 
-
-
-
-
-
-
-// ====================//
-
-//force sync (drop all tables! be carefuL!)
 //connect middleware
 app.use(morgan('dev'));
 app.use(bodyParser.json());
