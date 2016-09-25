@@ -18,7 +18,7 @@ var Tag = require('./models/tag')(db);
 User.hasMany(Link);
 Link.belongsTo(User);
 
-//A Category can have many Link... a Link belongs to one Category. One-to-Many
+//A Category can have many Link... a Link belongs to one Category. One-to-Many category#addLink <== adds categoryID to Link instance
 Category.hasMany(Link);
 Link.belongsTo(User);
 
@@ -27,8 +27,7 @@ Link.hasMany(Tag);
 Tag.belongsTo(Link);
 
 //A Like belongs to one Link.... a Like belongs to one user...?
-Like.hasOne(Link); 
-Like.hasOne(User); //allows me to use Like#setLink, Like#getLink
+Like.belongsTo(User); //<==TODO finish relationship here!
 
 //A User belongs to many Users and vice-versa as Friend Many-to-Many user#addFriend
 User.belongsToMany(User, {as: 'friend', through: 'friendship'}); // can i specify through: Friend Model?
@@ -41,5 +40,4 @@ module.exports = {
   Tag: Tag,
   Like: Like,
   Category: Category,
-  // FriendShip: FriendShip, 
 }

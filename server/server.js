@@ -16,72 +16,39 @@ var db = require('../db/db-config').db;
 db.authenticate()
 .then(function(){
   console.log('connected to db');
-  // User.findOne({fbname: "Michael Wong"})
-  //   .then(function(user){
-  //     console.log(user.addLink);
-  //     Link.findOne({owner: user.dataValues.fbid, assignee: user.dataValues.fbid,})
-  //     .then(function(link){
-  //       Like.create({like: true})
-  //       .then(function(like){
-  //         like.setLink(link);
-  //         like.setUser(user);
-  //       });
-  //     })
-
-  //   })
-
-  // User.findOne({where: {
-  //   fbname: "Michael Wong"
-  //   }
-  // })
-  // .then(function(user){
-  //   Link.create({url:'www.espn.com', owner:user.fbid, assignee:user.fbid})
-  //   .then(function(newLink){
-  //     user.addLink(newLink);
-  //   });
-  // })
-
-  // User.findOne({fbname: "Squirrely"})
-  //   .then(function(user){
-  //     // User.create({fbid: '27364asf', fbname: 'Squirrely'})
-  //     //   .then(function(newUser){
-  //     //     user.addFriend(newUser);
-  //     //   })
-      
-  //     // Link.create({url:'www.espn.com', owner:user.fbid, assignee:user.fbid})
-  //     //   .then(function(newLink){
-  //     //     user.addLink(newLink);
-  //     //   });
-
-  //     // Link.findAll({where: {
-  //     //   owner: user.fbid
-  //     // }})
-  //     // .then(function(data){
-  //     //   var mapped = data.map(function(curr){
-  //     //     return curr.dataValues;
-  //     //   })
-  //     //   console.log(mapped);
-  //     // })
-  //   });
 })
 .catch(function(err){
   console.log('sequelize connection error');
 });
 
 
+/* DO NOT DELETE SYNC BELOW! */
 /* Uncommment portion below to resync database (drop tables)
-as well as to add relational sequelize methods to it's model instances! */
-// db.sync({force: true})
-//   .then(function(){
-//     console.log('sycn success!');
-//     User.create({fbid: '928374', fbname: 'Michael Wong'})
-//       .then(function(user){
-//         console.log('user saved', user);
-//       })
-//   })
-//   .catch(function(err){
-//     console.log(err, 'could not sync');
-//   }); // <=== force sync to refresh
+as well as to add relational sequelize methods to it's model instances!
+A few intances will be created every time to test the databse */
+      // db.sync({force: true})
+      //   .then(function(){
+      //     console.log('sycn success!');
+      //     User.create({fbid: '928374', fbname: 'Michael Wong'})
+      //       .then(function(user){
+      //         User.create({fbid: 'ast294r', fbname:'Squirrel'})
+      //         .then(function(user2){
+      //           user.addFriend(user2);
+      //           Link.create({url:"www.test.com", owner:user.fbid, assignee:user2.fbid})
+      //           .then(function(link){
+      //             console.log('link saved!');
+      //             Like.create({like: true})
+      //             .then(function(like){
+      //               console.log('like instance created');
+      //             })
+      //           })
+      //         })  
+      //         console.log('users saved');
+      //       })
+      //   })
+      //   .catch(function(err){
+      //     console.log(err, 'could not sync');
+      //   }); // <=== force sync to refresh
 
 //connect middleware
 app.use(morgan('dev'));
