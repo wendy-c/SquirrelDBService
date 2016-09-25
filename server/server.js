@@ -16,19 +16,19 @@ var db = require('../db/db-config').db;
 db.authenticate()
 .then(function(){
   console.log('connected to db');
-  User.findOne({fbname: "Michael Wong"})
-    .then(function(user){
-      console.log(user.addLink);
-      Link.findOne({owner: user.dataValues.fbid, assignee: user.dataValues.fbid,})
-      .then(function(link){
-        Like.create({like: true})
-        .then(function(like){
-          like.setLink(link);
-          like.setUser(user);
-        });
-      })
+  // User.findOne({fbname: "Michael Wong"})
+  //   .then(function(user){
+  //     console.log(user.addLink);
+  //     Link.findOne({owner: user.dataValues.fbid, assignee: user.dataValues.fbid,})
+  //     .then(function(link){
+  //       Like.create({like: true})
+  //       .then(function(like){
+  //         like.setLink(link);
+  //         like.setUser(user);
+  //       });
+  //     })
 
-    })
+  //   })
 
   // User.findOne({where: {
   //   fbname: "Michael Wong"
