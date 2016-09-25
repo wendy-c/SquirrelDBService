@@ -88,7 +88,22 @@ module.exports = {
   },
 
   friendsGet: function(req, res, next){
+    var userID = req.params.userid;
 
+    // User.findAll({
+    //  include: [{
+    //     model: User,
+    //     where: {
+    //       'User.fbid': userID
+    //     }
+    //   }]
+    // })
+    // .then(function(data){
+    //   console.log(data);
+    // })
+    // .catch(function(err){
+    //   console.log('friend get error', err);
+    // });
   },
 
   friendsPut: function(req, res, next){

@@ -6,7 +6,7 @@ module.exports = function(db) {
     type: Sequelize.STRING,
     allowNull: false, 
   },
-  votes: {
+  likes: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
   },

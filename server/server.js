@@ -6,37 +6,63 @@ var Sequelize = require('sequelize');
 
 //== test data base ===//
 var User = require('../db/db-config').User;
-// var Friendship = require('../db/db-config').Friendship;
 var Link = require('../db/db-config').Link;
-
+var Tag = require('../db/db-config').Tag;
+var Like = require('../db/db-config').Like;
+var Category = require('../db/db-config').Category;
 //instantiate db ORM
 var db = require('../db/db-config').db;
 
 db.authenticate()
 .then(function(){
   console.log('connected to db');
-  User.findOne({fbname: "Squirrely"})
+  User.findOne({fbname: "Michael Wong"})
     .then(function(user){
-      // User.create({fbid: '27364asf', fbname: 'Squirrely'})
-      //   .then(function(newUser){
-      //     user.addFriend(newUser);
-      //   })
-      
-      // Link.create({url:'www.espn.com', owner:user.fbid, assignee:user.fbid})
-      //   .then(function(newLink){
-      //     user.addLink(newLink);
-      //   });
+      console.log(user.addLink);
+      Link.findOne({owner: user.dataValues.fbid, assignee: user.dataValues.fbid,})
+      .then(function(link){
+        Like.create({like: true})
+        .then(function(like){
+          like.setLink(link);
+          like.setUser(user);
+        });
+      })
 
-      // Link.findAll({where: {
-      //   owner: user.fbid
-      // }})
-      // .then(function(data){
-      //   var mapped = data.map(function(curr){
-      //     return curr.dataValues;
-      //   })
-      //   console.log(mapped);
-      // })
-    });
+    })
+
+  // User.findOne({where: {
+  //   fbname: "Michael Wong"
+  //   }
+  // })
+  // .then(function(user){
+  //   Link.create({url:'www.espn.com', owner:user.fbid, assignee:user.fbid})
+  //   .then(function(newLink){
+  //     user.addLink(newLink);
+  //   });
+  // })
+
+  // User.findOne({fbname: "Squirrely"})
+  //   .then(function(user){
+  //     // User.create({fbid: '27364asf', fbname: 'Squirrely'})
+  //     //   .then(function(newUser){
+  //     //     user.addFriend(newUser);
+  //     //   })
+      
+  //     // Link.create({url:'www.espn.com', owner:user.fbid, assignee:user.fbid})
+  //     //   .then(function(newLink){
+  //     //     user.addLink(newLink);
+  //     //   });
+
+  //     // Link.findAll({where: {
+  //     //   owner: user.fbid
+  //     // }})
+  //     // .then(function(data){
+  //     //   var mapped = data.map(function(curr){
+  //     //     return curr.dataValues;
+  //     //   })
+  //     //   console.log(mapped);
+  //     // })
+  //   });
 })
 .catch(function(err){
   console.log('sequelize connection error');
@@ -54,7 +80,7 @@ as well as to add relational sequelize methods to it's model instances! */
 //       })
 //   })
 //   .catch(function(err){
-//     console.log(err, 'could not synce');
+//     console.log(err, 'could not sync');
 //   }); // <=== force sync to refresh
 
 //connect middleware
