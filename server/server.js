@@ -6,48 +6,50 @@ var Sequelize = require('sequelize');
 
 //== test data base ===//
 var User = require('../db/db-config').User;
-// var Friendship = require('../db/db-config').Friendship;
 var Link = require('../db/db-config').Link;
-
+var Tag = require('../db/db-config').Tag;
+var Like = require('../db/db-config').Like;
+var Category = require('../db/db-config').Category;
 //instantiate db ORM
 var db = require('../db/db-config').db;
 
 db.authenticate()
 .then(function(){
   console.log('connected to db');
-  User.findOne({fbname: "Michael Wong"})
-    .then(function(user){
-      User.create({fbid: '27364asf', fbname: 'Squirrely'})
-        .then(function(newUser){
-          user.addFriend(newUser);
-        })
-    });
 })
 .catch(function(err){
   console.log('sequelize connection error');
 });
 
-// db.sync({force: true})
-//   .then(function(){
-//     console.log('sycn success!');
-//     User.create({fbid: '928374', fbname: 'Michael Wong'})
-//       .then(function(user){
-//         console.log('user saved', user);
-//       })
-//   })
-//   .catch(function(err){
-//     console.log(err, 'could not synce');
-//   }); // <=== force sync to refresh
 
+/* DO NOT DELETE SYNC BELOW! */
+/* Uncommment portion below to resync database (drop tables)
+as well as to add relational sequelize methods to it's model instances!
+A few intances will be created every time to test the database */
+      // db.sync({force: true})
+      //   .then(function(){
+      //     console.log('sycn success!');
+      //     User.create({fbid: '928374', fbname: 'Michael Wong'})
+      //       .then(function(user){
+      //         User.create({fbid: 'ast294r', fbname:'Squirrel'})
+      //         .then(function(user2){
+      //           user.addFriend(user2);
+      //           Link.create({url:"www.test.com", owner:user.fbid, assignee:user2.fbid})
+      //           .then(function(link){
+      //             console.log('link saved!');
+      //             Like.create({like: true})
+      //             .then(function(like){
+      //               console.log('like instance created');
+      //             })
+      //           })
+      //         })  
+      //         console.log('users saved');
+      //       })
+      //   })
+      //   .catch(function(err){
+      //     console.log(err, 'could not sync');
+      //   }); // <=== force sync to refresh
 
-
-
-
-
-
-// ====================//
-
-//force sync (drop all tables! be carefuL!)
 //connect middleware
 app.use(morgan('dev'));
 app.use(bodyParser.json());

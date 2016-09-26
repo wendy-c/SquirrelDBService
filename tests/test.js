@@ -13,5 +13,17 @@ describe("Squirrel Database Service API", function() {
         done();
       })
     });
+  }),
+
+  describe("API.get/Links", function() {
+
+    var url = 'http://localhost:8888/links/27364asf'
+
+    it("Responds with an array of links", function(done) {
+      request(url, function(error, res, body){
+        expect(typeof body).to.equal('object');
+        done();
+      })
+    });
   });
 });
