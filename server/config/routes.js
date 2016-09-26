@@ -17,5 +17,4 @@ module.exports = function(app){
   app.put('/friends/:userid', helpers.friendsPut);
 
   app.put('/links/:friendid/:userid', helpers.putLinksFriend);
-
 }

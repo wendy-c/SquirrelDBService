@@ -1,9 +1,12 @@
 var Sequelize = require('sequelize');
 var keys = require('./keys');
 
-var db = new Sequelize('squirrel', keys.username, keys.password, {
-  host: 'localhost', // <==== how to set host with many instances of db? 
-  dialect: 'mysql'
+//we will eventually need to set environmental variables for all the input fields below
+var db = new Sequelize('squirrel', keys.aws.username, keys.aws.password, {
+  host: keys.aws.host, // <==== how to set host with many instances of db? 
+  dialect: 'mysql',
+  dialectOptions: '{{path}}amazon-rds-ca-cert.pem',
+  port: 3306,
 })
 
 var Link = require('./models/link')(db);
