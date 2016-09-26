@@ -25,7 +25,7 @@ db.authenticate()
 /* DO NOT DELETE SYNC BELOW! */
 /* Uncommment portion below to resync database (drop tables)
 as well as to add relational sequelize methods to it's model instances!
-A few intances will be created every time to test the databse */
+A few intances will be created every time to test the database */
       // db.sync({force: true})
       //   .then(function(){
       //     console.log('sycn success!');

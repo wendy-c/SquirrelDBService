@@ -28,6 +28,8 @@ Tag.belongsTo(Link);
 
 //A Like belongs to one Link.... a Like belongs to one user...?
 Like.belongsTo(User); //<==TODO finish relationship here!
+//link can have many likes... a like belongs to one user... 
+
 
 //A User belongs to many Users and vice-versa as Friend Many-to-Many user#addFriend
 User.belongsToMany(User, {as: 'friend', through: 'friendship'}); // can i specify through: Friend Model?

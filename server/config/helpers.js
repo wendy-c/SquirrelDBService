@@ -14,18 +14,20 @@ module.exports = {
 
   // user Login or create new user API //
   login: function(req, res, next){
+    console.log(req.body, req.params.userid, 'yololo');
     var userID = req.body.userID;
     var userName = req.body.name;
     
-    User.findOne({fbid: userID})
+    User.findById(userID)
       .then(function(user){
         if(user){
-          res.sendStatus(200);
+          console.log(user, 'checking here');
+          res.send(user);
         } else {
           User.create({fbid: userID, fbname: userName})
             .then(function(user){
               console.log(userName + ' added to database');
-              res.sendStatus(201);
+              res.send(user); //<=== working here
             })
         }
       })

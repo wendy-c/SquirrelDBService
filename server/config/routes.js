@@ -4,7 +4,7 @@ module.exports = function(app){
 
   app.get('/test', helpers.test);
 
-  app.get('/login/:userid', helpers.login);
+  app.post('/login/:userid', helpers.login);
 
   app.get('/links/:userid', helpers.getLinks);
 
