@@ -6,7 +6,7 @@ var db = new Sequelize('squirrel', keys.aws.username, keys.aws.password, {
   host: keys.aws.host, // <==== how to set host with many instances of db? 
   dialect: 'mysql',
   dialectOptions: '{{path}}amazon-rds-ca-cert.pem',
-  port: 3306,
+  port: '3306',
 })
 
 var Link = require('./models/link')(db);
