@@ -20,6 +20,7 @@
   "homepage": "https://github.com/mwongka/SquirrelDBService#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
     "express": "^4.14.0",
     "morgan": "^1.7.0",
     "mysql": "^2.11.1",

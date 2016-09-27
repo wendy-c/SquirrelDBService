@@ -17,6 +17,7 @@ module.exports = {
     console.log(req.body, req.params.userid, 'yololo');
     var userID = req.body.userID;
     var userName = req.body.name;
+    var avatar = req.body.avatar;
     
     User.findById(userID)
       .then(function(user){
@@ -24,7 +25,7 @@ module.exports = {
           console.log(user, 'checking here');
           res.send(user);
         } else {
-          User.create({fbid: userID, fbname: userName})
+          User.create({fbid: userID, fbname: userName, avatar: avatar})
             .then(function(user){
               console.log(userName + ' added to database');
               res.send(user); //<=== working here

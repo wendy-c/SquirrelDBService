@@ -3,6 +3,7 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var routes = require('./config/routes');
 var Sequelize = require('sequelize');
+var cors = require('cors');
 
 //== test data base ===//
 var User = require('../db/db-config').User;
@@ -26,31 +27,32 @@ db.authenticate()
 /* Uncommment portion below to resync database (drop tables)
 as well as to add relational sequelize methods to it's model instances!
 A few intances will be created every time to test the database */
-      // db.sync({force: true})
-      //   .then(function(){
-      //     console.log('sycn success!');
-      //     User.create({fbid: '928374', fbname: 'Michael Wong'})
-      //       .then(function(user){
-      //         User.create({fbid: 'ast294r', fbname:'Squirrel'})
-      //         .then(function(user2){
-      //           user.addFriend(user2);
-      //           Link.create({url:"www.test.com", owner:user.fbid, assignee:user2.fbid})
-      //           .then(function(link){
-      //             console.log('link saved!');
-      //             Like.create({like: true})
-      //             .then(function(like){
-      //               console.log('like instance created');
-      //             })
-      //           })
-      //         })  
-      //         console.log('users saved');
-      //       })
-      //   })
-      //   .catch(function(err){
-      //     console.log(err, 'could not sync');
-      //   }); // <=== force sync to refresh
+      db.sync({force: true})
+        .then(function(){
+          console.log('sycn success!');
+          User.create({fbid: '928374', fbname: 'Michael Wong'})
+            .then(function(user){
+              User.create({fbid: 'ast294r', fbname:'Squirrel'})
+              .then(function(user2){
+                user.addFriend(user2);
+                Link.create({url:"www.test.com", owner:user.fbid, assignee:user2.fbid})
+                .then(function(link){
+                  console.log('link saved!');
+                  Like.create({like: true})
+                  .then(function(like){
+                    console.log('like instance created');
+                  })
+                })
+              })  
+              console.log('users saved');
+            })
+        })
+        .catch(function(err){
+          console.log(err, 'could not sync');
+        }); // <=== force sync to refresh
 
 //connect middleware
+app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
