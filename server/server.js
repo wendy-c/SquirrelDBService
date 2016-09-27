@@ -3,6 +3,7 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var routes = require('./config/routes');
 var Sequelize = require('sequelize');
+var cors = require('cors');
 
 //== test data base ===//
 var User = require('../db/db-config').User;
@@ -51,6 +52,7 @@ A few intances will be created every time to test the database */
         }); // <=== force sync to refresh
 
 //connect middleware
+app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
