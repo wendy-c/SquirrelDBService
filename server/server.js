@@ -46,6 +46,7 @@ db.authenticate()
 as well as to add relational sequelize methods to it's model instances!
 A few intances will be created every time to test the database */
     //COMMENT THIS OUT LATER
+
       // db.sync({force: true})
       //   .then(function(){
       //     console.log('sycn success!');
