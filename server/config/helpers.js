@@ -98,26 +98,6 @@ module.exports = {
       console.log('delete Links service error');
     })
   },
-  //get list of user's friends
-  // friendsGet: function(req, res, next){
-  //   var userID = req.params.userid;
-  //   //Below is how you access the 'friendship' table created by sequelize
-  //   User.find({
-  //     where:{fbid: userID},
-  //     include:[{model: User, as: 'friend'}],
-  //   })
-  //   .then(function(data){
-  //     var mappedFriends = data.friend.map(function(friend){
-  //       return {fbid:friend.fbid, fbname:friend.fbname};
-  //     })
-  //     res.send({
-  //       friends:mappedFriends
-  //     });
-  //   })
-  //   .catch(function(err){
-  //     console.log('could not get friends from db. DB error');
-  //   })
-  // },
   friendsGet: function(req, res, next){
     var userID = req.params.userid;
     //Below is how you access the 'friendship' table created by sequelize
@@ -129,15 +109,12 @@ module.exports = {
       var mappedFriends = data.friend.map(function(friend){
         return {fbid:friend.fbid, fbname:friend.fbname};
       })
-      console.log(mappedFriends, 'mappedFriends Yolo')
       return mappedFriends;
     })
     .then(function(friendsArray){
-      console.log(friendsArray, 'friendsArray Yolo')
       var promiseArray = [];
       friendsArray.forEach(function(friend){
         var updatedFriend = friend;
-        console.log(friend.fbid, 'friend.fbid');
         var promise = new Promise(function(resolve,reject){
           Link.findAll({
             where: {owner: friend.fbid}
@@ -153,7 +130,6 @@ module.exports = {
 
       Promise.all(promiseArray)
       .then((values)=> {
-        console.log(values, 'please for the love of god work!')
         res.send(values);
       })
     })
