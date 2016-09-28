@@ -17,6 +17,23 @@ var db = require('../db/db-config').db;
 db.authenticate()
 .then(function(){
   console.log('connected to db');
+
+  // Link.create({
+  //   url: 'www.dogs.com', 
+  //   owner: '777777', 
+  //   assignee: '777777'
+  // })
+  // .then(function(link){
+  //   console.log(link, ' saved');
+  // })
+  
+  // User.findOne({fbid:'10105564501516258'})
+  //   .then(function(user){
+  //     User.create({fbid:'111111', fbname:'Jordan T'})
+  //     .then(function(squirrel){
+  //       user.addFriend(squirrel);
+  //     })
+  //   })
 })
 .catch(function(err){
   console.log('sequelize connection error');
