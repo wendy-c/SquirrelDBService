@@ -142,6 +142,7 @@ module.exports = {
       console.log('delete Links service error');
     })
   },
+
   friendsGet: function(req, res, next){
     var userID = req.params.userid;
     //Below is how you access the 'friendship' table created by sequelize
@@ -160,6 +161,7 @@ module.exports = {
       // create promises for each friend and push into promiseArray
       friendsArray.forEach(function(friend){
         var updatedFriend = friend;
+
         var promise = new Promise(function(resolve,reject){
           Link.findAll({
             where: {owner: friend.fbid}

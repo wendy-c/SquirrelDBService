@@ -22,6 +22,7 @@ db.authenticate()
   //   url: 'http://www.cnn.com/2016/09/29/africa/china-african-donkeys/index.html', 
   //   owner: '10105564501516258', 
   //   assignee: '10154660869289363'
+
   // })
   // .then(function(link){
   //   console.log(link, ' saved');
