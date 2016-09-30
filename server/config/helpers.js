@@ -56,8 +56,9 @@ module.exports = {
   },
   // add link to user // 
   putLinks: function(req, res, next){
-    var userID = req.params.userid;
 
+    var userID = req.params.userid;
+    console.log('Saving',req.body.url);
     Link.create({url: req.body.url, owner: userID, assignee: userID})
       .then(function(link){
         console.log('new link saved in putLinks');
@@ -109,6 +110,7 @@ module.exports = {
       });
     })
     .catch(function(err){
+      res.send({friends:[]})
       console.log('could not get friends from db. DB error');
     })
   },

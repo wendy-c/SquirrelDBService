@@ -1,4 +1,4 @@
-module.exports = {
-  username: 'USERNAME',
-  password: 'PASSWORD',
+module.exports.aws = {
+  username: 'root',
+  password: 'P',
 };

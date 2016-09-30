@@ -2,6 +2,7 @@ var Sequelize = require('sequelize');
 var keys = require('./keys');
 
 //we will eventually need to set environmental variables for all the input fields below
+//NEED TO CHANGE THIS TO POINT TO LOCAL MYSQL
 var db = new Sequelize('squirrel', keys.aws.username, keys.aws.password, {
   host: keys.aws.host, // <==== how to set host with many instances of db? 
   dialect: 'mysql',
