@@ -17,6 +17,24 @@ var db = require('../db/db-config').db;
 db.authenticate()
 .then(function(){
   console.log('connected to db');
+
+  // Link.create({
+  //   url: 'http://www.cnn.com/2016/09/29/africa/china-african-donkeys/index.html', 
+  //   owner: '10105564501516258', 
+  //   assignee: '10154660869289363'
+
+  // })
+  // .then(function(link){
+  //   console.log(link, ' saved');
+  // })
+  
+  // User.findOne({fbid:'10105564501516258'})
+  //   .then(function(user){
+  //     User.create({fbid:'111111', fbname:'Jordan T'})
+  //     .then(function(squirrel){
+  //       user.addFriend(squirrel);
+  //     })
+  //   })
 })
 .catch(function(err){
   console.log('sequelize connection error');
@@ -28,6 +46,7 @@ db.authenticate()
 as well as to add relational sequelize methods to it's model instances!
 A few intances will be created every time to test the database */
     //COMMENT THIS OUT LATER
+
       // db.sync({force: true})
       //   .then(function(){
       //     console.log('sycn success!');

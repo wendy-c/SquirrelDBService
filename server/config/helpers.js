@@ -39,20 +39,68 @@ module.exports = {
 
   // user request API // 
   getLinks: function(req, res, next){
-    var userID = req.params.userid;
+    const userID = req.params.userid;
+    const promises = [];
 
     Link.findAll({where:{
       owner: userID,
     }})
     .then(function(data){
-      var mapped = data.map(function(curr){
+      console.log('please work', data)
+      const mapped = data.map(function(curr){
         return curr.dataValues;
       });
-      res.send(mapped);
+      return mapped;
+    })
+    .then((data) => {
+      const addPromise = function(id){
+        return new Promise((res, rej) => {
+          User.findById(id)
+          .then((user)=>{
+            if(user){
+              const userObj = {[user.fbid]: user.fbname, avatar: user.avatar}
+              res(userObj);
+            } else {
+              res();
+            }
+          })
+        })
+      }
+      const tempStorage = {}
+      data.forEach((curr2) => {
+        if(curr2.assignee !== userID && !tempStorage[curr2.assignee]){
+          promises.push(addPromise(curr2.assignee))
+          tempStorage[curr2.assignee] = true;
+        }
+      });
+      Promise.all(promises)
+      .then((users) => {
+        console.log('user?', users);
+        const assigneeReferenceObj = {}
+         
+         users.forEach(function(curr){
+          if(curr){
+            for(var key in curr){
+              if(key !== 'avatar'){
+                assigneeReferenceObj[key] = {
+                  name: curr[key],
+                  avatar: curr.avatar
+                };
+              }
+            }
+          }
+         })
+        console.log('user2?', assigneeReferenceObj);
+        res.send([data, assigneeReferenceObj]);
+      })
     })
     .catch(function(err){
       console.log('could not get Links from database: db error');
     });
+  },
+  //getUser Friends Links.. limit 10? //
+  getFriendsLinks: function(req, res, next) {
+    //TODO TODO!!!!!
   },
   // add link to user // 
   putLinks: function(req, res, next){
@@ -61,6 +109,7 @@ module.exports = {
     console.log('Saving',req.body.url);
     Link.create({url: req.body.url, owner: userID, assignee: userID})
       .then(function(link){
+        console.log(link);
         console.log('new link saved in putLinks');
         res.sendStatus(201);
         //should we be sending back the link to user for any reason? 
@@ -93,7 +142,7 @@ module.exports = {
       console.log('delete Links service error');
     })
   },
-  //get list of user's friends
+
   friendsGet: function(req, res, next){
     var userID = req.params.userid;
     //Below is how you access the 'friendship' table created by sequelize
@@ -105,9 +154,35 @@ module.exports = {
       var mappedFriends = data.friend.map(function(friend){
         return {fbid:friend.fbid, fbname:friend.fbname};
       })
-      res.send({
-        friends:mappedFriends
-      });
+
+      console.log(mappedFriends, 'mappedFriends Yolo')
+      return mappedFriends;
+    })
+    .then(function(friendsArray){
+      console.log(friendsArray, 'friendsArray Yolo')
+      var promiseArray = [];
+      friendsArray.forEach(function(friend){
+        var updatedFriend = friend;
+        console.log(friend.fbid, 'friend.fbid');
+        var promise = new Promise(function(resolve,reject){
+          Link.findAll({
+            where: {owner: friend.fbid}
+          })
+          .then(function(links){
+              updatedFriend.links = links;
+            resolve(updatedFriend);
+          })
+        })
+
+        promiseArray.push(promise);
+      })
+
+
+      Promise.all(promiseArray)
+      .then((values)=> {
+        console.log(values, 'please for the love of god work!')
+        res.send(values);
+      })
     })
     .catch(function(err){
       res.send({friends:[]})
@@ -137,6 +212,7 @@ module.exports = {
 
   //put new link into friends folder
   putLinksFriend: function(req, res, next){
+    console.log('adding link to friend');
     var userID = req.params.userid;
     var friendID = req.params.friendid;
     var url = req.body.link;
