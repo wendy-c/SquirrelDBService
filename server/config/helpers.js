@@ -57,19 +57,41 @@ module.exports = {
         return new Promise((res, rej) => {
           User.findById(id)
           .then((user)=>{
-            res(user);
+            if(user){
+              const userObj = {[user.fbid]: user.fbname, avatar: user.avatar}
+              res(userObj);
+            } else {
+              res();
+            }
           })
         })
       }
+      const tempStorage = {}
       data.forEach((curr2) => {
-        if(curr2.assignee !== userID){
+        if(curr2.assignee !== userID && !tempStorage[curr2.assignee]){
           promises.push(addPromise(curr2.assignee))
+          tempStorage[curr2.assignee] = true;
         }
       });
       Promise.all(promises)
-      .then((user) => {
-        console.log('data?', data, 'user?', user);
-        res.send(data);
+      .then((users) => {
+        console.log('user?', users);
+        const assigneeReferenceObj = {}
+         
+         users.forEach(function(curr){
+          if(curr){
+            for(var key in curr){
+              if(key !== 'avatar'){
+                assigneeReferenceObj[key] = {
+                  name: curr[key],
+                  avatar: curr.avatar
+                };
+              }
+            }
+          }
+         })
+        console.log('user2?', assigneeReferenceObj);
+        res.send([data, assigneeReferenceObj]);
       })
     })
     .catch(function(err){
