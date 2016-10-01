@@ -166,7 +166,7 @@ module.exports = {
         console.log(friend.fbid, 'friend.fbid');
         var promise = new Promise(function(resolve,reject){
           Link.findAll({
-            where: {owner: friend.fbid}
+            where: {owner: friend.fbid, assignee: friend.fbid}
           })
           .then(function(links){
               updatedFriend.links = links;

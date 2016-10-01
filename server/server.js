@@ -18,21 +18,22 @@ db.authenticate()
 .then(function(){
   console.log('connected to db');
 
-  // Link.create({
-  //   url: 'http://www.cnn.com/2016/09/29/africa/china-african-donkeys/index.html', 
-  //   owner: '10105564501516258', 
-  //   assignee: '10154660869289363'
+  Link.create({
+    url: 'http://www.cnn.com/2016/09/29/africa/china-african-donkeys/index.html', 
+    owner: '10154660869289363', 
+    assignee: '10154660869289363'
 
-  // })
-  // .then(function(link){
-  //   console.log(link, ' saved');
-  // })
+  })
+  .then(function(link){
+    console.log(link, ' saved');
+  })
   
-  // User.findOne({fbid:'10105564501516258'})
+  // User.findById('10154660869289363')
   //   .then(function(user){
-  //     User.create({fbid:'111111', fbname:'Jordan T'})
-  //     .then(function(squirrel){
-  //       user.addFriend(squirrel);
+  //     User.create({fbid: '10154660869289363', fbname: 'Jordan Taylor'})
+  //     .then(function(user2){
+  //       console.log(user, user2, 'yolo')
+  //       user.addFriend(user2);
   //     })
   //   })
 })
