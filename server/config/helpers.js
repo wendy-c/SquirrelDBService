@@ -42,9 +42,9 @@ module.exports = {
     const userID = req.params.userid;
     const promises = [];
 
-    Link.findAll({where:{
-      owner: userID,
-    }})
+    Link.findAll({where:{owner: userID,},
+      order: [['createdAt', 'DESC']],
+    })
     .then(function(data){
       console.log('please work', data)
       const mapped = data.map(function(curr){
@@ -220,7 +220,7 @@ module.exports = {
     Link.create({url:url, owner:friendID, assignee:userID})
     .then(function(link){
       console.log('You added a link for your friend!');
-      res.sendStatus(201);
+      res.send(link).sendStatus(201);
     })
   },
 }
