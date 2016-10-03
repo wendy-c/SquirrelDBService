@@ -17,17 +17,23 @@ var db = require('../db/db-config').db;
 db.authenticate()
 .then(function(){
   console.log('connected to db');
-
-  Link.create({
-    url: 'http://www.cnn.com/2016/09/29/africa/china-african-donkeys/index.html', 
-    owner: '10154660869289363', 
-    assignee: '10154660869289363'
-
-  })
-  .then(function(link){
-    console.log(link, ' saved');
-  })
-  
+/* use below code to delete links! 
+  // Link.findAll({
+  //   where: {
+  //     owner: 'undefined',
+  //     assignee: 'undefined'
+  //   }
+  // })
+  // .then(function(links){
+  //   links.forEach(function(link){
+  //     link.destroy();
+  //   })
+  // })
+*/
+  // Link.create({url: 'http://www.cnn.com/2016/10/02/politics/lebron-james-endorses-hillary-clinton/index.html', owner: '10105564501516258', assignee: '10154658058164363'})
+  // .then(function(link){
+  //   console.log('link created');
+  // })
   // User.findById('10154660869289363')
   //   .then(function(user){
   //     User.create({fbid: '10154660869289363', fbname: 'Jordan Taylor'})

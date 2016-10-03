@@ -43,7 +43,7 @@ module.exports = {
     const promises = [];
 
     Link.findAll({where:{owner: userID,},
-      order: [['createdAt', 'DESC']],
+      // order: [['createdAt', 'DESC']],
     })
     .then(function(data){
       console.log('please work', data)
