@@ -22,4 +22,6 @@ module.exports = function(app){
 
   app.get('/search/:friend', helpers.searchFriends);
 
+  app.put('/likes', helpers.putLike);
+
 }
