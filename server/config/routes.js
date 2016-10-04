@@ -16,6 +16,8 @@ module.exports = function(app){
 
   app.get('/friends/:userid', helpers.friendsGet);
 
+  app.get('/friends/nameOnly/:userid', helpers.friendsGetNameOnly);
+
   app.put('/friends/:userid', helpers.friendsPut);
   //may need to modify endpoint below.. may just route to app.put/links?
   app.put('/links/friends/:friendid/:userid', helpers.putLinksFriend);
