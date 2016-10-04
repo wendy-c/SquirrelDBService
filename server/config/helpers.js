@@ -152,7 +152,7 @@ module.exports = {
     })
     .then(function(data){
       var mappedFriends = data.friend.map(function(friend){
-        return {fbid:friend.fbid, fbname:friend.fbname};
+        return {fbid:friend.fbid, fbname:friend.fbname, avatar:friend.avatar};
       })
 
       console.log(mappedFriends, 'mappedFriends Yolo')
@@ -236,5 +236,42 @@ module.exports = {
     .then((data)=>{
       res.send(data);
     })
+  },
+
+  //add Like for specific link. (One user can like a specific Link ID ONCE ONLY)
+  putLike: function(req, res, next) {
+    var likedBy = req.body.userId;
+    var likedLink = req.body.url;
+    var linkOwner = req.body.owner
+  
+    Link.findOne({
+      where: {
+        url: likedLink,
+        owner: linkOwner,
+      }
+      })
+      .then(function(link){
+        Like.findOne({
+          where: {
+            linkId: link.dataValues.id,
+            userFbid: likedBy,
+          }
+        })
+        .then(function(like){
+          if(like === null) {
+            Like.create()
+            .then(function(newLike){
+              newLike.setLink(link.dataValues.id);
+              newLike.setUser(likedBy);
+              res.sendStatus(200);
+            });
+          } else {
+            res.send('already exists');
+          }
+        })
+      })
+      .catch(function(err){
+        console.log('putLike error in database helpers.js');
+      })
   }
 }

@@ -30,11 +30,11 @@ Link.belongsTo(User);
 Link.hasMany(Tag);
 Tag.belongsTo(Link);
 
-//A Like belongs to one Link.... a Like belongs to one user...?
-Like.belongsTo(User); //<==TODO finish relationship here!
-//link can have many likes... a like belongs to one user... 
+Like.belongsTo(Link); // When creating new Like instance.. youc an now use like.setUser, and like.setLink!
+Like.belongsTo(User);// this userID on every 'like' instance will refer to the person who issued the like. NOT the person who is receiving it. //ONLY ONE PERSON CAN LIKE ONE ARTICLE
 
-
+Link.hasMany(Like, {as: 'LinkLikes'}); // will allow us to quickly grab a link count
+User.hasMany(Like, {as: 'UserLikes'}); // should allow us to get all likes this user has issued and figure out 'recommended categoreis?'
 //A User belongs to many Users and vice-versa as Friend Many-to-Many user#addFriend
 User.belongsToMany(User, {as: 'friend', through: 'friendship'}); // can i specify through: Friend Model?
 

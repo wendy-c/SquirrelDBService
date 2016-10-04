@@ -17,30 +17,49 @@ var db = require('../db/db-config').db;
 db.authenticate()
 .then(function(){
   console.log('connected to db');
- // use below code to delete links! 
-  // Link.findAll({
+
+  /*HOW TO GET ALL THE LIKES OF A PARTICULAR LINK!
+  // Link.findOne({
   //   where: {
-  //     url: 'http://www.cnn.com/2016/09/29/africa/china-african-donkeys/index.html'
+  //     url: 'http://www.cnn.com/2016/09/29/africa/china-african-donkeys/index.html',
+  //     owner: '10105564501516258'
+  //   }
+  // })
+  // .then(function(link) {
+  //   link.getLinkLikes()
+  //   .then(function(data){
+  //     console.log(data, 'WHATS HERE MOFO!')
+  //   })
+  // })
+  
+ // use below code to delete links! 
+  // Link.findOne({
+  //   where: {
+  //     url: 'http://www.cnn.com/2016/09/29/africa/china-african-donkeys/index.html',
+  //     owner: '10105564501516258'
   //   }
   // })
   // .then(function(links){
-  //   links.forEach(function(link){
-  //     link.destroy();
-  //   })
-  // })
+  //   console.log(links, 'data values');
+  //   Like.create()
+  //   .then(function(like){
+  //     like.setLink(links.dataValues.id)
+  //     like.setUser('10105564501516258')
+  //   });
+  // });
 
-  // Link.create({url: 'http://www.cnn.com/2016/09/29/africa/china-african-donkeys/index.html', owner: '10154660869289363', assignee: '10154660869289363'})
+  // Link.create({url: 'http://www.cnn.com/2016/09/29/africa/china-african-donkeys/index.html', owner: '10105564501516258', assignee: '10105564501516258'})
   // .then(function(link){
   //   console.log('link created');
   // })
-  // User.findById('10154660869289363')
-  //   .then(function(user){
-  //     User.create({fbid: '10154660869289363', fbname: 'Jordan Taylor'})
-  //     .then(function(user2){
-  //       console.log(user, user2, 'yolo')
-  //       user.addFriend(user2);
-  //     })
-  //   })
+ //  User.findById('10154660869289363')
+ //    .then(function(user){
+ //      User.create({fbid: '10154660869289363', fbname: 'Jordan Taylor'})
+ //      .then(function(user2){
+ //        console.log(user, user2, 'yolo')
+ //        user.addFriend(user2);
+ //      })
+ //    })
 })
 .catch(function(err){
   console.log('sequelize connection error');
@@ -51,7 +70,7 @@ db.authenticate()
 /* Uncommment portion below to resync database (drop tables)
 as well as to add relational sequelize methods to it's model instances!
 A few intances will be created every time to test the database */
-    //COMMENT THIS OUT LATER
+    // COMMENT THIS OUT LATER
 
       // db.sync({force: true})
       //   .then(function(){
@@ -61,14 +80,14 @@ A few intances will be created every time to test the database */
       //         User.create({fbid: 'ast294r', fbname:'Squirrel'})
       //         .then(function(user2){
       //           user.addFriend(user2);
-      //           Link.create({url:"www.test.com", owner:user.fbid, assignee:user2.fbid})
-      //           .then(function(link){
-      //             console.log('link saved!');
-      //             Like.create({like: true})
-      //             .then(function(like){
-      //               console.log('like instance created');
-      //             })
-      //           })
+      //           // Link.create({url:"www.test.com", owner:user.fbid, assignee:user2.fbid})
+      //           // .then(function(link){
+      //           //   console.log('link saved!');
+      //           //   Like.create({like: true})
+      //           //   .then(function(like){
+      //           //     console.log('like instance created');
+      //           //   })
+      //           // })
       //         })  
       //         console.log('users saved');
       //       })
