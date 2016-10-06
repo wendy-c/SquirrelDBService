@@ -33,9 +33,9 @@ module.exports = {
   // user Login or create new user API //
   login: function(req, res, next){
     console.log('you are in login api');
-    var userID = req.body.username; //isthis now the unique username? 
-    var userName = req.body.password; //isthis now the unique password? 
-    var avatar = req.body.avatar;
+    const userID = req.body.username; //isthis now the unique username? 
+    const userName = req.body.password; //isthis now the unique password? 
+    const avatar = req.body.avatar;
     
     User.findById(userID)
       .then(function(user){
@@ -145,7 +145,20 @@ module.exports = {
   },
   //getUser Friends Links.. limit 10? //
   getFriendsLinks: function(req, res, next) {
-    //TODO TODO!!!!!
+    var friendID = req.params.friendid;
+
+    Link.findAll({
+      where: {
+        owner: friendID,
+        assignee: friendID,
+      }
+    })
+    .then((friendsLinks) => {
+      res.send(friendsLinks);
+    })
+    .catch((err) => {
+      console.log(err, 'getFriendsLinks helper error');
+    })
   },
   // add link to user // 
   putLinks: function(req, res, next){
