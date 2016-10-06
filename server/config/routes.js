@@ -1,8 +1,8 @@
 var helpers = require('./helpers');
 
-module.exports = function(app){
+module.exports = function(app) {
 
-  app.get('/test', helpers.test);
+  app.get('/redis', helpers.getMostRecent);
 
   app.post('/login/:userid', helpers.login);
 
@@ -26,4 +26,4 @@ module.exports = function(app){
 
   app.put('/likes', helpers.putLike);
 
-}
+};

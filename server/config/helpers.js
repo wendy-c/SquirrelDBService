@@ -7,9 +7,15 @@ var Tag = require('../../db/db-config').Tag;
 
 module.exports = {
   // test route for Postman and Mocha TDD
-  test: function(req, res, next){
-    console.log(req, 'req test!');
-    res.sendStatus(200);
+  getMostRecent: function(req, res, next) {
+    console.log('testtest!>>>>>>>>>>>>>>>>>>>>>>>>>');
+    Link.findAll({limit: 20, order: 'createdAt DESC'})
+      .then(function(data) {
+        console.log('give me redis data!');
+        res.send(data);
+      }).catch(function(error) {
+        console.log('Error in finding data for redis D=');
+      });
   },
 
   // user Login or create new user API //
