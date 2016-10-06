@@ -18,7 +18,19 @@ db.authenticate()
 .then(function(){
   console.log('connected to db');
 
-  /*HOW TO GET ALL THE LIKES OF A PARTICULAR LINK!
+  User.findOne({
+    where: {
+      fbid: '10105564501516258'
+    }
+  })
+  .then(function(guy) {
+    User.create({fbid: '10154660869289363', fbname: 'Jordan Taylor', avatar: 'https://scontent.fsnc1-1.fna.fbcdn.net/v/t1.0-1/p320x320/13592162_10154405816284363_2728511714196473_n.jpg?oh=b76da1d3155fb55208c9bafddfbb4ac6&oe=586FBF09'})
+    .then(function(jordan) {
+      guy.addFriend(jordan);
+      console.log('jordan is now your friend');
+    })
+  })
+  // HOW TO GET ALL THE LIKES OF A PARTICULAR LINK!
   // Link.findOne({
   //   where: {
   //     url: 'http://www.cnn.com/2016/09/29/africa/china-african-donkeys/index.html',
@@ -48,10 +60,11 @@ db.authenticate()
   //   });
   // });
 
-  // Link.create({url: 'http://www.cnn.com/2016/09/29/africa/china-african-donkeys/index.html', owner: '10105564501516258', assignee: '10105564501516258'})
-  // .then(function(link){
-  //   console.log('link created');
-  // })
+  Link.create({url: 'http://www.cnn.com/2016/10/03/middleeast/isis-attack-kurdish-wedding-party-syria/index.html', owner: '10154660869289363', assignee: '10154660869289363'})
+  .then(function(link){
+    console.log('link created');
+  })
+
  //  User.findById('10154660869289363')
  //    .then(function(user){
  //      User.create({fbid: '10154660869289363', fbname: 'Jordan Taylor'})
@@ -66,7 +79,7 @@ db.authenticate()
 });
 
 
-/* DO NOT DELETE SYNC BELOW! */
+/* DO NOT DELETE SYNC BELOW! 
 /* Uncommment portion below to resync database (drop tables)
 as well as to add relational sequelize methods to it's model instances!
 A few intances will be created every time to test the database */

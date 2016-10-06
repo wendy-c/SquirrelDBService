@@ -189,8 +189,20 @@ module.exports = {
       console.log('could not get friends from db. DB error');
     })
   },
+
+  friendsGetNameOnly: function(req, res, next) {
+    var userID = req.params.userid;
+    
+    User.find({
+      where:{fbid: userID},
+      include:[{model: User, as: 'friend'}],
+    })
+    .then((data) => {
+      res.send(data.friend);
+    })
+  },
   // add friend to user
-  friendsPut: function(req, res, next){
+  friendsPut: function(req, res, next) {
     var userID = req.params.userid;
     var friendID = req.body.friend;
     
