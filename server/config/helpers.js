@@ -9,19 +9,21 @@ module.exports = {
   // test route for Postman and Mocha TDD
   test: function(req, res, next){
 
-    res.sendStatus(200);
+    res.send("hello!");
   },
 
   signup: function(req, res, next) {
-    console.log(req.body, 'req body here');
+    console.log('in sign up');
     const username = req.body.username;
     const password = req.body.password;
 
     User.findById(username)
     .then(function(user){
       if(user) {
-        res.send(404);
+        console.log('user already exists');
+        res.sendStatus(404);
       } else {
+        console.log('user does not exist yet');
         User.create({fbid: username, fbname: password})
         .then(function(user){
           res.send(user); //<=== working here
@@ -32,7 +34,7 @@ module.exports = {
 
   // user Login or create new user API //
   login: function(req, res, next){
-    console.log('you are in login api');
+
     const userID = req.body.username; //isthis now the unique username? 
     const userName = req.body.password; //isthis now the unique password? 
     const avatar = req.body.avatar;
@@ -56,7 +58,7 @@ module.exports = {
   login2: function(req, res, next) {
     const username = req.body.username;
     const password = req.body.password;
-
+    console.log(username, password, 'whats in username password 1234')
     User.findById(username)
     .then(function(user){
       if(user && user.fbname === password) {
@@ -84,6 +86,7 @@ module.exports = {
   },
   // user request API // 
   getLinks: function(req, res, next){
+    console.log('YOOOLOOOOOOOOOOOOOOOO');
     const userID = req.params.userid;
     const promises = [];
 
@@ -157,7 +160,7 @@ module.exports = {
       res.send(friendsLinks);
     })
     .catch((err) => {
-      console.log(err, 'getFriendsLinks helper error');
+
     })
   },
   // add link to user // 
@@ -202,6 +205,7 @@ module.exports = {
   },
 
   friendsGet: function(req, res, next){
+    console.log('goodbye damien');
     var userID = req.params.userid;
     //Below is how you access the 'friendship' table created by sequelize
     User.find({
@@ -212,8 +216,6 @@ module.exports = {
       var mappedFriends = data.friend.map(function(friend){
         return {fbid:friend.fbid, fbname:friend.fbname, avatar:friend.avatar};
       })
-
-
       return mappedFriends;
     })
     .then(function(friendsArray){
@@ -300,7 +302,7 @@ module.exports = {
 
     User.findAll({
       where: {
-        fbname: search
+        fbid: search
       }
     })
     .then((data)=>{
