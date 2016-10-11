@@ -5,7 +5,7 @@ module.exports = function(app){
   app.get('/test', helpers.test);
 
   app.post('/signup', helpers.signup);
-  // below route can be used for facbeook OAuth
+  // below route can be used for facbeook OAuth:
   app.post('/login/:userid', helpers.login);
 
   app.post('/login2', helpers.login2);
