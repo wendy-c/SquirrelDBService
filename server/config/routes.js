@@ -5,7 +5,7 @@ module.exports = function(app){
   app.get('/test', helpers.test);
 
   app.post('/signup', helpers.signup);
-
+  // below route can be used for facbeook OAuth
   app.post('/login/:userid', helpers.login);
 
   app.post('/login2', helpers.login2);
@@ -22,7 +22,7 @@ module.exports = function(app){
 
   app.get('/friends/:userid', helpers.friendsGet);
 
-  app.get('/friends/nameOnly/:userid', helpers.friendsGetNameOnly);
+  app.get('/friends/nameonly/:userid', helpers.friendsGetNameOnly);
 
   app.put('/friends/:userid', helpers.friendsPut);
   //may need to modify endpoint below.. may just route to app.put/links?
